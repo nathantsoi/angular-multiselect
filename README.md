@@ -11,13 +11,36 @@
   </head>
   <body ng-controller="MainCtrl">
 
-    <multiselect multiple="true" ng-model="selectedCar" options="car.id as car.name for car in cars" />
+    <multiselect multiple="true" ng-model="selectedCar" options="car.id as car.name for car in cars" template-url="/multiselect.tmpl.html" />
     <div class="well well-small">
         {{selectedCar}}
     </div>
 
   </body>
 </html>
+```
+
+
+#### multiselect.tmpl.html
+```html
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" ng-click="toggleSelect()" ng-disabled="disabled" ng-class="{'error': !valid()}">
+    {{header}} <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li>
+      <input class="form-control input-sm" type="text" ng-model="searchText.label" autofocus="autofocus" placeholder="Filter" />
+    </li>
+    <li ng-show="multiple" role="presentation" class="">
+      <button class="btn btn-link btn-xs" ng-click="checkAll()" type="button"><i class="icon-check"></i> Check all</button>
+      <button class="btn btn-link btn-xs" ng-click="uncheckAll()" type="button"><i class="icon-check-empty"></i> Uncheck all</button>
+    </li>
+    <li ng-repeat="i in items | filter:searchText">
+      <a ng-click="select(i); focus()">
+        <i ng-class="{'icon-check': i.checked, 'icon-check-empty': !i.checked}"></i> {{i.label}}</a>
+    </li>
+  </ul>
+</div>
 ```
 
 
