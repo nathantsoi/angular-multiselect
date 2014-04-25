@@ -268,8 +268,8 @@ angular.module('ui.multiselect', [])
                 }
               }
               if (scope.multiple && inSelection) {
+                event.stopImmediatePropagation();
                 $(event.target).parents('a').click();
-                event.stopPropagation();
               }
             }
           });
